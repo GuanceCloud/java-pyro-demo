@@ -1,7 +1,7 @@
-FROM eclipse-temurin:11
+FROM eclipse-temurin:8u392-b08-jdk
 
-COPY . /home/java
-WORKDIR /home/java
+COPY . /opt/java
+WORKDIR /opt/java
 RUN ./gradlew --no-daemon installDist
 ENV JAVA_OPTS "-javaagent:dd-java-agent.jar -XX:FlightRecorderOptions=stackdepth=512"
 ENV DD_AGENT_HOST localhost
@@ -11,4 +11,10 @@ ENV DD_VERSION 1.0
 ENV DD_ENV testing
 ENV DD_PROFILING_ENABLED true
 ENV DD_PROFILING_ALLOCATION_ENABLED true
+ENV DD_PROFILING_DDPROF_ENABLED true
+ENV DD_PROFILING_DDPROF_CPU_ENABLED true
+ENV DD_PROFILING_DDPROF_WALL_ENABLED true
+ENV DD_PROFILING_DDPROF_ALLOC_ENABLED true
+ENV DD_PROFILING_DDPROF_LIVEHEAP_ENABLED true
+
 CMD ./build/install/java-profiling-demo/bin/java-profiling-demo
