@@ -36,32 +36,24 @@ class Fibonacci implements Runnable {
 	static Random random = new Random();
 
 	static int i = 0;
-	@Trace(operationName = "fibonacci", resourceName = "Fibonacci")
 	static int fibonacci(int n) {
 		if (n <= 2) {
 			return 1;
 		}
-		return fibonacci1(n-1) + fibonacci2(n-2);
+		if (n % 31 == 0) {
+			return fibonacci(n-1) + fibonacciWithTrace(n-2);
+		} else if (n % 37 == 0) {
+			return fibonacciWithTrace(n-1) + fibonacciWithTrace(n-2);
+		}
+		return fibonacci(n-1) + fibonacci(n-2);
 	}
 
-	static int fibonacci1(int n) {
+	@Trace(operationName = "fibonacci", resourceName = "Fibonacci")
+	static int fibonacciWithTrace(int n) {
 		if (n <= 2) {
 			return 1;
 		}
-
-		if (random.nextInt(100000000) <= 1) {
-			return fibonacci1(n-1) + fibonacci(n-2);
-		} else {
-			return fibonacci1(n-1) + fibonacci1(n-2);
-		}
-	}
-
-	@Trace(operationName = "fibonacci2", resourceName = "Fibonacci")
-	static int fibonacci2(int n) {
-		if (n <= 2) {
-			return 1;
-		}
-		return fibonacci1(n-1) + fibonacci1(n-2);
+		return fibonacci(n-1) + fibonacci(n-2);
 	}
 
 	@Override
@@ -286,7 +278,7 @@ class NetIO implements Runnable {
 
 	@Trace(operationName = "sendRequest", resourceName = "NetIO")
 	public static synchronized void sendRequest() throws IOException {
-		URL url = new URL("https://baijiahao.baidu.com/s?id=1766280179246190391&wfr=spider&for=pc");
+		URL url = new URL("https://tv189.com/");
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("POST");
 		conn.setDoOutput(true);
@@ -355,7 +347,7 @@ class SyncWait implements Runnable {
 	@Trace(operationName = "notify", resourceName = "SyncWait")
 	public static void syncWait(int i) throws InterruptedException {
 		synchronized (lock) {
-			lock.wait(new Random().nextInt(150));
+			lock.wait(1 + new Random().nextInt(150));
 			Fibonacci.fibonacci(30);
 			System.out.println("thread wait timeout: " + i);
 		}
