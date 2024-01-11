@@ -278,7 +278,7 @@ class NetIO implements Runnable {
 
 	@Trace(operationName = "sendRequest", resourceName = "NetIO")
 	public static synchronized void sendRequest() throws IOException {
-		URL url = new URL("https://tv189.com/");
+		URL url = new URL("https://baijiahao.baidu.com/s?id=1766280179246190391&wfr=spider&for=pc");
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("POST");
 		conn.setDoOutput(true);
