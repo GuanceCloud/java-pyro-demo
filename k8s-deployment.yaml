@@ -26,6 +26,10 @@ spec:
         - name: movies-java
           image: zhangyicloud/movies-java:latest
           imagePullPolicy: Always
+          securityContext:
+#            privileged: true
+            seccompProfile:
+              type: Unconfined
           volumeMounts:
             - mountPath: /app/datakit-profiler
               name: profile-volume
