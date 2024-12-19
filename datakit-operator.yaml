@@ -15,12 +15,18 @@ spec:
       labels:
         app: movies-java
       annotations:
-        admission.datakit/java-profiler.version: "latest"
+        admission.datakit/java-profiler.version: "0.4.0"
     spec:
+      securityContext:
+        seccompProfile:
+          type: Unconfined
       containers:
         - name: movies-java
-          image: zhangyicloud/movies-java:latest
-          imagePullPolicy: Always
+          image: zhangyicloud/movies-java:centos7
+          securityContext:
+            seccompProfile:
+              type: Unconfined
+          imagePullPolicy: IfNotPresent
           env:
             - name: JAVA_OPTS
               value: ""

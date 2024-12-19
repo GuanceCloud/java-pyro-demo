@@ -1,0 +1,5 @@
+[uos-local]
+name=UOS Yum Repository
+baseurl=https://pmgmt.jiagouyun.com/repository/uos-yum-group/
+enabled=1
+gpgcheck=0

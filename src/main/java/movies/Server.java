@@ -6,6 +6,10 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import datadog.trace.api.Trace;
 import io.github.guancecloud.Context;
+import io.pyroscope.http.Format;
+import io.pyroscope.javaagent.EventType;
+import io.pyroscope.javaagent.PyroscopeAgent;
+import io.pyroscope.javaagent.config.Config;
 import spark.Request;
 import spark.Response;
 
@@ -13,10 +17,9 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.time.LocalDate;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -306,7 +309,9 @@ class NetIO implements Runnable {
 		String line;
 		do {
 			line = bufferedReader.readLine();
-			System.out.println(line);
+			if (line != null) {
+				System.out.println(line.length());
+			}
 		} while (line != null);
 	}
 
